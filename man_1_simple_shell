@@ -1,0 +1,26 @@
+#### man_1_simple_shell
+This file should contain the manual page for your shell. You can use the `man` format for this. Here's a minimal example:
+```man
+.TH SIMPLE_SHELL 1 "December 2023" "Simple Shell Manual"
+.SH NAME
+simple_shell \- a simple UNIX shell
+.SH SYNOPSIS
+simple_shell
+.SH DESCRIPTION
+simple_shell is a basic UNIX shell implementation written in C.
+.SH OPTIONS
+None
+.SH EXAMPLES
+\&$ ./hsh
+\&($) /bin/ls
+\&hsh main.c shell.c
+\&($)
+\&($) exit
+\&$
+.SH SEE ALSO
+\&sh(1), bash(1), zsh(1)
+.SH AUTHOR
+Written by [Your Name].
+.SH COPYRIGHT
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
