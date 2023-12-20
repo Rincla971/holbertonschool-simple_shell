@@ -1,17 +1,37 @@
-#include "main.h"
+#include "shell.h"
+
+/**
+ * main - Entry point
+ *
+ * Return: 0 to sucess
+ */
 
 int main(void)
-	
 {
-    char *line;
-    while (1)
-    {
-        afficher_prompt();  // Afficher le prompt
-        line = lire_ligne();  // Lire la commande de l'utilisateur
-        if (!line)
-            break;  // Gérer la fin de fichier (Ctrl+D)
-        executer_commande(line);  // Exécuter la commande
-        free(line);
-    }
-    return (0);
+	char *input = NULL;
+	size_t len_input = 0;
+	ssize_t read = 0;
+
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+		{
+			printf("LOCACA ");
+			fflush(stdout);
+		}
+
+		read = getline(&input, &len_input, stdin);
+		if (read == EOF)
+		{
+			free(input);
+			exit(0);
+		}
+		if (read > 0 && input[read - 1] == '\n')
+		{
+			input[read - 1] = '\0';
+		}
+		token_input(input);
+	}
+	free(input);
+	return (0);
 }
