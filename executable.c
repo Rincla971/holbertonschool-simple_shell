@@ -51,12 +51,13 @@ void executable(char *argv[], char *input)
 			/* Get the exit status of the child process */
 			status_exit = WEXITSTATUS(status);
 
-			/* If the exit status is not 0, free memory and exit with status 2 */
-			if (status_exit != 0)
+	/* If the exit status is not 0,free memory and exit with status 2 */
+	if (status_exit != 0)
 			{
-				free(argv[0]);
-				free(input);
-				exit(2);
+	free(argv[0]);
+
+	free(input);
+	exit(2);
 			}
 		}
 	}
