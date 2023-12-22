@@ -1,37 +1,49 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * main - Entry point
- *
- * Return: 0 to sucess
+ * main - main function for the shell program
+ * Return: 0 if the program runs successfully
  */
 
 int main(void)
 {
-	char *input = NULL;
-	size_t len_input = 0;
-	ssize_t read = 0;
+	char *command = NULL;
+	size_t len = 0;
+	int i = 0;
+	char *token;
+	char **args;
+	char **env = environ;
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
+		read_command(&command, &len);
+		if (strcmp(command, "exit") == 0)
 		{
-			printf("LOCACA ");
-			fflush(stdout);
+			free(command);
+			break;
 		}
-
-		read = getline(&input, &len_input, stdin);
-		if (read == EOF)
+		if (strcmp(command, "env") == 0)
 		{
-			free(input);
-			exit(0);
+			for (; *env; env++)
+			{
+				printf("%s\n", *env);
+			}
 		}
-		if (read > 0 && input[read - 1] == '\n')
+		token = strtok(command, " ");
+		args = malloc(64 * sizeof(char *));
+		while (token != NULL)
 		{
-			input[read - 1] = '\0';
+			args[i] = token;
+			token = strtok(NULL, " ");
+			i++;
 		}
-		token_input(input);
+		args[i] = NULL;
+		i = 0;
+		execute_command(args);
+		free(args);
+		free(command);
+		command = NULL;
+		len = 0;
 	}
-	free(input);
 	return (0);
 }
